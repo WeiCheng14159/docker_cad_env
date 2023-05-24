@@ -1,0 +1,23 @@
+version: '2.1'
+
+volumes:
+  files:
+    driver: local
+
+services:
+  cad_env:
+    image: cad_env_image:7
+    user: "${UID}:${GID}"
+    restart: always
+    container_name: cad_env_7
+    environment:
+      - HOME=/home/${USER}
+      - SHELL=/usr/bin/tcsh
+      - DISPLAY:${DISPLAY}
+    tty: true
+    network_mode: "host"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ~/.Xauthority:/home/${USER}/.Xauthority
+      - /home/wei:/home/${USER}
+      - /home/nfs_cad:/home/nfs_cad
